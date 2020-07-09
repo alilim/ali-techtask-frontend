@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
-import Index from './pages/index'
+import './index.css'
+
+import Index from './pages/home/home'
 
 export const Root = () => { 
   return  (

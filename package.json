@@ -42,6 +42,7 @@
     "sass": "^1.26.10",
     "sass-loader": "^9.0.2",
     "style-loader": "^1.2.1",
+    "styled-components": "^5.1.1",
     "url-loader": "^4.1.0",
     "webpack": "^4.43.0",
     "webpack-async-chunk-names-plugin": "^0.1.1",
@@ -50,6 +51,7 @@
     "webpack-hot-middleware": "^2.25.0"
   },
   "dependencies": {
+    "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   }
