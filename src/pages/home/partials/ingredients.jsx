@@ -1,88 +1,89 @@
-import React from 'react'
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
+import moment from 'moment'
+
+import { generateSlug } from '../../../assets/javascripts/function'
 
 import { IngredientsContainer, IngredientsWrapper, TitleContainer, IngredientsList, IngredientsItem, IngredientsImage, IngredientsButtonContainer, ButtonComponent, LabelEmptyContainer } from '../home.styles'
 
-const Ingredients = () => {
+const Ingredients = ({data, evSubmitIngredients, date, innerRef}) => {
+  const [ valueIngredient, setValueIngredient ] = useState([])
+  
+  const evClickIngredient = (e) => {
+    const el = e.target,
+      containerRef = el.closest('._refIngredientContainer')
+    if(!containerRef) return
+    const value = containerRef.getAttribute('data-value'),
+      isActive = containerRef.classList.contains('is-active')
+    let tempValueIngredients = [...valueIngredient]
+    if(isActive) {
+      containerRef.classList.remove('is-active') 
+      const tempValueIngredientsFindIndex = tempValueIngredients.findIndex(_temp => _temp === value)
+      if(tempValueIngredientsFindIndex >=0) tempValueIngredients.splice(tempValueIngredientsFindIndex, 1)
+    }
+    else {
+      containerRef.classList.add('is-active')
+      tempValueIngredients.push(value)
+      
+    }
+    setValueIngredient(tempValueIngredients)
+  } 
+
+  const evReset = () => {
+    const containerRef = document.querySelectorAll('._refIngredientContainer');
+    [].forEach.call(containerRef, function(el) {
+      el.classList.remove('is-active')
+    })
+    setValueIngredient([])
+  } 
+
+  const evSubmit = () => {
+    evSubmitIngredients(valueIngredient)
+  }
+
   return (
     <IngredientsContainer>
-      <IngredientsWrapper>
+      <IngredientsWrapper ref={innerRef}>
         <TitleContainer>
           <h3>Choose Ingredients</h3>
           <small>Ingredients are used to prepare a special dish from Fridge</small>
         </TitleContainer>
-        <IngredientsList>
-          <IngredientsItem>
-            <IngredientsImage src='/public/images/ingridients/ham.jpg' />
-            <h4>Ham</h4>
-          </IngredientsItem>
-          <IngredientsItem isDisable={true}>
-            <IngredientsImage src='/public/images/ingridients/cheese.jpg' />
-            <h4>Cheese</h4>
-          </IngredientsItem>
-          <IngredientsItem>
-            <IngredientsImage src='/public/images/ingridients/bread.jpg' />
-            <h4>Bread</h4>
-          </IngredientsItem>
-          <IngredientsItem isActive={true}>
-            <IngredientsImage src='/public/images/ingridients/butter.jpg' />
-            <h4>Butter</h4>
-          </IngredientsItem>
-          <IngredientsItem>
-            <IngredientsImage src='/public/images/ingridients/bacon.jpg' />
-            <h4>Bacon</h4>
-          </IngredientsItem>
-          <IngredientsItem>
-            <IngredientsImage src='/public/images/ingridients/eggs.jpg' />
-            <h4>Eggs</h4>
-          </IngredientsItem>
-          <IngredientsItem isActive={true}>
-            <IngredientsImage src='/public/images/ingridients/mushrooms.jpg' />
-            <h4>Mushrooms</h4>
-          </IngredientsItem>
-          <IngredientsItem>
-            <IngredientsImage src='/public/images/ingridients/sausage.jpg' />
-            <h4>Sausage</h4>
-          </IngredientsItem>
-          <IngredientsItem>
-            <IngredientsImage src='/public/images/ingridients/hotdog-bun.jpg' />
-          </IngredientsItem>
-          <IngredientsItem>
-            <IngredientsImage src='/public/images/ingridients/ketchup.jpg' />
-            <h4>Ketchup</h4>
-          </IngredientsItem>
-          <IngredientsItem isActive={true}>
-            <IngredientsImage src='/public/images/ingridients/mustard.jpg' />
-            <h4>Mustard</h4>
-          </IngredientsItem>
-          <IngredientsItem>
-            <IngredientsImage src='/public/images/ingridients/lettuce.jpg' />
-            <h4>Lettuce</h4>
-          </IngredientsItem>
-          <IngredientsItem isActive={true}>
-            <IngredientsImage src='/public/images/ingridients/tomato.jpg' />
-            <h4>Tomato</h4>
-          </IngredientsItem>
-          <IngredientsItem>
-           <IngredientsImage src='/public/images/ingridients/cucumber.jpg' />
-            <h4>Cucumber</h4>
-          </IngredientsItem>
-          <IngredientsItem>
-           <IngredientsImage src='/public/images/ingridients/beetroot.jpg' />
-            <h4>Beetroot</h4>
-          </IngredientsItem>
-          <IngredientsItem isActive={true}>
-           <IngredientsImage src='/public/images/ingridients/salad-dressing.jpg' />
-            <h4>Salad Dressing</h4>
-          </IngredientsItem>
-        </IngredientsList>
-        <IngredientsButtonContainer>
-          <ButtonComponent mode='clear'>Clear</ButtonComponent>
-          <ButtonComponent mode='default'>Submit</ButtonComponent>
-        </IngredientsButtonContainer>
-        {/* <LabelEmptyContainer>There is no ingredients ...</LabelEmptyContainer> */}
+        {
+          data ? (
+            <>
+              <IngredientsList>
+                {
+                  data.map((_data, idx) => {
+                    const MomentUseByDate = moment(_data['use-by'], 'YYYY-MM-DD'),
+                      MomentDate =  moment(date, 'YYYY-MM-DD')
+                    const isDisabled = MomentUseByDate.diff(MomentDate, 'days') < 0 ? true : false
+                    const slugName = generateSlug(_data.title)
+                    return (
+                      <IngredientsItem className='_refIngredientContainer' title={_data.title} data-value={slugName} key={idx} {...(!isDisabled && { onClick: evClickIngredient })} isDisable={isDisabled}>
+                        <IngredientsImage src={`/public/images/ingridients/${slugName}.jpg`} />
+                        <h4>{_data.title}</h4>
+                      </IngredientsItem>
+                    )
+                  })
+                }
+              </IngredientsList>
+              <IngredientsButtonContainer>
+                <ButtonComponent mode='clear' onClick={evReset}>Clear</ButtonComponent>
+                <ButtonComponent mode='default' onClick={evSubmit}>Submit</ButtonComponent>
+              </IngredientsButtonContainer>
+            </>
+          ) : <LabelEmptyContainer>There is no ingredients ...</LabelEmptyContainer> 
+        }
       </IngredientsWrapper>
     </IngredientsContainer>
   )
+}
+
+Ingredients.propTypes = {
+  data: PropTypes.array,
+  evSubmitIngredients: PropTypes.func, 
+  date: PropTypes.string,
+  innerRef: PropTypes.any
 }
 
 export default Ingredients

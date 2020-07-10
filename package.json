@@ -51,8 +51,10 @@
     "webpack-hot-middleware": "^2.25.0"
   },
   "dependencies": {
+    "moment": "^2.27.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "react-input-mask": "^2.0.4"
   }
 }

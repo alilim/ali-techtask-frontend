@@ -7,7 +7,7 @@ const Action = () => {
     <ActionContainer>
       <ActionWrapper>
         <ActionArrowIcon />
-        <p>Please Input your lunch date, and Generate! or Click Today!</p>
+        <p>Please Input your lunch date, and Generate! <br/> or Click Today!</p>
       </ActionWrapper>
     </ActionContainer>  
   )

@@ -35,31 +35,8 @@ const headingStyled = css`
   }
 `
 
-const getIngredientsItemModifiedStyled = ({isActive, isDisable}) => {
-  if(isActive) return `
-    display: block;
-    background: #A7D469;
-    border: 2px dashed #fff;
-    &:after {
-      content: url('/public/images/icons/right.svg');
-      width: 25px;
-      height: 25px;
-      position: absolute;
-      top: 45%;
-      left: 50%;
-      margin-left: -14px;
-      margin-top: -14px;
-    }
-    & h4 {
-      top: 60%;
-      color: #087558;
-      text-shadow: none;
-    }
-    & ${IngredientsImage} {
-      display: none;
-    }
-  `
-  else if(isDisable) return `
+const getIngredientsItemModifiedStyled = ({isDisable = false}) => {  
+  if(isDisable) return `
     cursor: default;
     &:before {
       content: "";
@@ -73,15 +50,16 @@ const getIngredientsItemModifiedStyled = ({isActive, isDisable}) => {
       opacity: .65;
     }
     &:after {
-      content: url('/public/images/icons/expired.png');
+      content: url('/public/images/icons/usedby.svg');
       width: 50px;
       height: 10px;
       position: absolute;
       z-index: 101;
       left: 50%;
       top: 50%;
-      margin-left: -70px;
-      margin-top: -50px;
+      margin-left: -25px;
+      margin-top: -25px;
+      opacity: .75;
     }
   `
 }
@@ -119,11 +97,11 @@ export const MainWrapper = styled.div`
 
 export const FridgeContainer = styled.article`
   margin: 10% 0 12% 25%;
-  width: 380px;
+  width: 386px;
   ${headingStyled}
 `
 
-export const FridgeFormContainer = styled.form`
+export const FridgeFormContainer = styled.article`
   margin-top: 3px;
   & input {
     width: 250px;
@@ -133,11 +111,20 @@ export const FridgeFormContainer = styled.form`
     border: 1px solid transparent;
     padding: 10px 20px;
     outline: none;
-    font-size: 14px;
+    font-size: 15px;
+    margin-right: 10px;
+    text-align: center;
     &:focus {
       border-color: #087558;
       background-color: #ffffff;
     }
+  }
+  & i {
+    color: #767676;
+    font-size: 14px;
+  }
+  & button {
+    margin-left: 10px;
   }
 `
 
@@ -145,7 +132,7 @@ export const IngredientsButtonContainer = styled.aside`
   display: grid;
   grid-gap: 10px;
   grid-template-columns: 1fr 1fr;
-  margin: 10px auto;
+  margin: 10px auto 30px;
 `
 
 export const ButtonComponent = styled.button`
@@ -159,6 +146,7 @@ export const ButtonComponent = styled.button`
   border-radius: 30px;
   cursor: pointer;
   height: 40px;
+  outline: none;
   ${getButtonModifiedStyled}
 `
 
@@ -172,6 +160,8 @@ export const ActionWrapper = styled.div`
   & p {
     padding: 30px 0;
     text-align: center;
+    font-weight: 500;
+    text-decoration: underline;
   }
 `
 
@@ -208,6 +198,10 @@ export const TitleContainer = styled.div`
   & small {
     ${subtTitleStyled}
   }
+  & b {
+    text-transform: uppercase;
+    font-size: 12px;
+  }
 `
 
 export const IngredientsList = styled.ul`
@@ -215,11 +209,15 @@ export const IngredientsList = styled.ul`
   list-style-type: none;
   position: relative;
   display: inline-grid;
-  grid-template-areas: "a a a a ";
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 15px 10px;
   justify-items: center;
   align-items: center;
   padding-left: 0;
+`
+
+export const IngredientsImage = styled.img`
+  ${imageStyled}
 `
 
 export const IngredientsItem = styled.li`
@@ -230,6 +228,30 @@ export const IngredientsItem = styled.li`
   height: 150px;
   text-align: center;
   cursor: pointer;
+  ${getIngredientsItemModifiedStyled}
+  &.is-active {
+    display: block;
+    background: #A7D469;
+    border: 2px dashed #fff;
+    &:after {
+      content: url('/public/images/icons/right.svg');
+      width: 25px;
+      height: 25px;
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      margin-left: -14px;
+      margin-top: -14px;
+    }
+    & h4 {
+      top: 60%;
+      color: #087558;
+      text-shadow: none;
+    }
+    & ${IngredientsImage} {
+      display: none;
+    }
+  }
   & h4 {
     color: #fff;
     position: absolute;
@@ -240,11 +262,6 @@ export const IngredientsItem = styled.li`
     margin: 0;
     text-shadow: 0px 2px 2px #665D5D;
   }
-  ${getIngredientsItemModifiedStyled}
-`
-
-export const IngredientsImage = styled.img`
-  ${imageStyled}
 `
 
 export const LabelEmptyContainer = styled.label`
@@ -273,12 +290,12 @@ export const BannerWrapper = styled.div`
 `
 export const BannerEnjoyContainer = styled.div`
   margin: 5% 0px 5% 25%;
-  width: 380px;
+  width: 386px;
   ${headingStyled}
 `
 
 export const RecipesContainer = styled.section`
-  padding: 20px 0 30px;
+  padding: 20px 0;
   margin-bottom: 70px;
 `
 
@@ -291,11 +308,10 @@ export const RecipesList = styled.ul`
   list-style-type: none;
   position: relative;
   display: inline-grid;
-  grid-gap: 15px 20px;
+  grid-gap: 45px 20px;
   justify-items: center;
   align-items: center;
-  grid-area: auto;
-  grid-template-areas: "a a a";
+  grid-template-columns: 1fr 1fr 1fr;
   padding-left: 0;
 `
 
@@ -347,4 +363,10 @@ export const RecipeDetailImage = styled.img`
   width: 18px;
   height: 16px;
   float: left;
+`
+
+export const LoadingContainer = styled.div`
+  text-align: center;
+  margin: 30px 0;
+  padding: 30px 0;
 `
