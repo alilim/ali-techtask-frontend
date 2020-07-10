@@ -1,24 +1,6 @@
 import React from 'react'
 
-import BaconIngredient from '../../../assets/images/ingridients/bacon.jpg'
-import BeetrootIngredient from '../../../assets/images/ingridients/beetroot.jpg'
-import BreadIngredient from '../../../assets/images/ingridients/bread.jpg'
-import ButterIngredient from '../../../assets/images/ingridients/butter.jpg'
-import CheeseIngredient from '../../../assets/images/ingridients/cheese.jpg'
-import CucumberIngredient from '../../../assets/images/ingridients/cucumber.jpg'
-import EggsIngredient from '../../../assets/images/ingridients/eggs.jpg'
-import HamIngredient from '../../../assets/images/ingridients/ham.jpg'
-import HotdogBunIngredient from '../../../assets/images/ingridients/hotdog-bun.jpg'
-import KetchupIngredient from '../../../assets/images/ingridients/ketchup.jpg'
-import LettuceIngredient from '../../../assets/images/ingridients/lettuce.jpg'
-import MushroomsIngredient from '../../../assets/images/ingridients/mushrooms.jpg'
-import MustardIngredient from '../../../assets/images/ingridients/mustard.jpg'
-import SaladDressingIngredient from '../../../assets/images/ingridients/salad-dressing.jpg'
-import SausageIngredient from '../../../assets/images/ingridients/sausage.jpg'
-import TomatoIngredient from '../../../assets/images/ingridients/tomato.jpg'
-
-
-import { IngredientsContainer, IngredientsWrapper, TitleContainer, IngredientsList, IngredientsItem, IngredientsImage, ButtonDefault, LabelEmptyContainer } from '../home.styles'
+import { IngredientsContainer, IngredientsWrapper, TitleContainer, IngredientsList, IngredientsItem, IngredientsImage, IngredientsButtonContainer, ButtonComponent, LabelEmptyContainer } from '../home.styles'
 
 const Ingredients = () => {
   return (
@@ -29,72 +11,74 @@ const Ingredients = () => {
           <small>Ingredients are used to prepare a special dish from Fridge</small>
         </TitleContainer>
         <IngredientsList>
-          <IngredientsItem isActive={true}>
-            <IngredientsImage src={HamIngredient} />
+          <IngredientsItem>
+            <IngredientsImage src='/public/images/ingridients/ham.jpg' />
             <h4>Ham</h4>
           </IngredientsItem>
           <IngredientsItem isDisable={true}>
-            <IngredientsImage src={CheeseIngredient} />
+            <IngredientsImage src='/public/images/ingridients/cheese.jpg' />
             <h4>Cheese</h4>
           </IngredientsItem>
           <IngredientsItem>
-            <IngredientsImage src={BreadIngredient} />
+            <IngredientsImage src='/public/images/ingridients/bread.jpg' />
             <h4>Bread</h4>
           </IngredientsItem>
           <IngredientsItem isActive={true}>
-            <IngredientsImage src={ButterIngredient} />
+            <IngredientsImage src='/public/images/ingridients/butter.jpg' />
             <h4>Butter</h4>
           </IngredientsItem>
           <IngredientsItem>
-            <IngredientsImage src={BaconIngredient} />
+            <IngredientsImage src='/public/images/ingridients/bacon.jpg' />
             <h4>Bacon</h4>
           </IngredientsItem>
           <IngredientsItem>
-            <IngredientsImage src={EggsIngredient} />
+            <IngredientsImage src='/public/images/ingridients/eggs.jpg' />
             <h4>Eggs</h4>
           </IngredientsItem>
           <IngredientsItem isActive={true}>
-            <IngredientsImage src={MushroomsIngredient} />
+            <IngredientsImage src='/public/images/ingridients/mushrooms.jpg' />
             <h4>Mushrooms</h4>
           </IngredientsItem>
           <IngredientsItem>
-            <IngredientsImage src={SausageIngredient} />
+            <IngredientsImage src='/public/images/ingridients/sausage.jpg' />
             <h4>Sausage</h4>
           </IngredientsItem>
           <IngredientsItem>
-            <IngredientsImage src={HotdogBunIngredient} />
-            <h4>Hotdog Bun</h4>
+            <IngredientsImage src='/public/images/ingridients/hotdog-bun.jpg' />
           </IngredientsItem>
           <IngredientsItem>
-            <IngredientsImage src={KetchupIngredient} />
+            <IngredientsImage src='/public/images/ingridients/ketchup.jpg' />
             <h4>Ketchup</h4>
           </IngredientsItem>
           <IngredientsItem isActive={true}>
-            <IngredientsImage src={MustardIngredient} />
+            <IngredientsImage src='/public/images/ingridients/mustard.jpg' />
             <h4>Mustard</h4>
           </IngredientsItem>
           <IngredientsItem>
-            <IngredientsImage src={LettuceIngredient} />
+            <IngredientsImage src='/public/images/ingridients/lettuce.jpg' />
             <h4>Lettuce</h4>
           </IngredientsItem>
           <IngredientsItem isActive={true}>
-            <IngredientsImage src={TomatoIngredient} />
+            <IngredientsImage src='/public/images/ingridients/tomato.jpg' />
             <h4>Tomato</h4>
           </IngredientsItem>
           <IngredientsItem>
-            <IngredientsImage src={CucumberIngredient} />
+           <IngredientsImage src='/public/images/ingridients/cucumber.jpg' />
             <h4>Cucumber</h4>
           </IngredientsItem>
           <IngredientsItem>
-            <IngredientsImage src={BeetrootIngredient} />
+           <IngredientsImage src='/public/images/ingridients/beetroot.jpg' />
             <h4>Beetroot</h4>
           </IngredientsItem>
           <IngredientsItem isActive={true}>
-            <IngredientsImage src={SaladDressingIngredient} />
+           <IngredientsImage src='/public/images/ingridients/salad-dressing.jpg' />
             <h4>Salad Dressing</h4>
           </IngredientsItem>
         </IngredientsList>
-        <ButtonDefault>Submit</ButtonDefault>
+        <IngredientsButtonContainer>
+          <ButtonComponent mode='clear'>Clear</ButtonComponent>
+          <ButtonComponent mode='default'>Submit</ButtonComponent>
+        </IngredientsButtonContainer>
         {/* <LabelEmptyContainer>There is no ingredients ...</LabelEmptyContainer> */}
       </IngredientsWrapper>
     </IngredientsContainer>

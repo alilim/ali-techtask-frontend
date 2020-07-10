@@ -7,14 +7,16 @@ import Ingredients from './partials/ingredients'
 import Banner from './partials/banner'
 import Recipes from './partials/recipes'
 
+
 const Index = () => {
   return (
     <SingleLayout>
       <Main />
       <Action />
-      {/* <Ingredients />
+      {/* <Recipes mode='default' /> */}
+      <Ingredients />
       <Banner />
-      <Recipes /> */}
+      <Recipes />
     </SingleLayout>
   )
 }

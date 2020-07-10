@@ -1,7 +1,5 @@
 import React from 'react'
 
-import Logo from '../../assets/images/print.png'
-
 import { HeaderContainer, HeaderWrapper, LogoContainer, LogoText, LinkNav } from './header.styles'
 
 const HeaderIndex = () => {
@@ -10,7 +8,7 @@ const HeaderIndex = () => {
       <HeaderContainer>
         <HeaderWrapper>
           <LogoContainer>
-            <img src={Logo} width='50px'/>
+            <img src='/public/images/print.png' width='50px'/>
             <LogoText>Lunchee.</LogoText>
           </LogoContainer>
           <nav>

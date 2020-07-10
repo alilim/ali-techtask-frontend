@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { MainContainer, MainWrapper, FridgeContainer, FridgeFormContainer, ButtonDefault } from '../home.styles'
+import { MainContainer, MainWrapper, FridgeContainer, FridgeFormContainer, ButtonComponent } from '../home.styles'
 
 const Main = () => {
   return (
@@ -11,7 +11,7 @@ const Main = () => {
           <small>Input your preference lunch date</small>
           <FridgeFormContainer>
             <input type='text' placeholder='dd/mm/yyyy'/>
-            <ButtonDefault type='submit'>Generate</ButtonDefault>
+            <ButtonComponent mode='default'>Generate</ButtonComponent>
           </FridgeFormContainer>
         </FridgeContainer>
       </MainWrapper>

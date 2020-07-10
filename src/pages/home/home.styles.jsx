@@ -1,8 +1,4 @@
 import styled, { css } from 'styled-components'
-import backgroundMain from '../../assets/images/backgrounds/lauren-mancke-unsplash.jpg'
-import backgroundBanner from '../../assets/images/backgrounds/vanesa-conunaese-E-unsplash.jpg'
-import checkMark from '../../assets/images/icons/right.svg'
-import expiredMark from '../../assets/images/icons/expired.png'
 
 const containerStyled = css`
   display: grid;
@@ -45,7 +41,7 @@ const getIngredientsItemModifiedStyled = ({isActive, isDisable}) => {
     background: #A7D469;
     border: 2px dashed #fff;
     &:after {
-      content: url(${checkMark});
+      content: url('/public/images/icons/right.svg');
       width: 25px;
       height: 25px;
       position: absolute;
@@ -77,7 +73,7 @@ const getIngredientsItemModifiedStyled = ({isActive, isDisable}) => {
       opacity: .65;
     }
     &:after {
-      content: url(${expiredMark});
+      content: url('/public/images/icons/expired.png');
       width: 50px;
       height: 10px;
       position: absolute;
@@ -91,8 +87,25 @@ const getIngredientsItemModifiedStyled = ({isActive, isDisable}) => {
 }
 
 
+const getButtonModifiedStyled = ({mode}) => {
+  if(mode) {
+    if(mode === 'clear') return `
+      background: transparent;
+      border: 1px solid #ccc;
+    `
+    else if(mode === 'default') return `
+      color: #ffffff;
+      background: #087558;
+      &:hover {
+        color: #087558;
+        background: #A7D469;
+      }
+    `
+  }
+}
+
 export const MainContainer = styled.section`
-  background-image:url(${backgroundMain});
+  background-image:url('/public/images/backgrounds/lauren-mancke-unsplash.jpg');
   background-repeat: no-repeat;
   width: 100%;
   height: auto;
@@ -128,12 +141,16 @@ export const FridgeFormContainer = styled.form`
   }
 `
 
-export const ButtonDefault = styled.button`
-  color: #ffffff;
-  background: #087558;
+export const IngredientsButtonContainer = styled.aside`
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 1fr 1fr;
+  margin: 10px auto;
+`
+
+export const ButtonComponent = styled.button`
   padding: 15px 25px;
   line-height: 13px;
-  margin-left: 10px;
   box-shadow: 20px 37px 102px rgba(0,0,0,0.098);
   border: none;
   font-size: 12px;
@@ -142,14 +159,12 @@ export const ButtonDefault = styled.button`
   border-radius: 30px;
   cursor: pointer;
   height: 40px;
-  &:hover {
-    color: #087558;
-    background: #A7D469;
-  }
+  ${getButtonModifiedStyled}
 `
 
 export const ActionContainer = styled.section`
   padding: 30px 0 0;
+  position: relative;
 `
 
 export const ActionWrapper = styled.div`
@@ -160,16 +175,29 @@ export const ActionWrapper = styled.div`
   }
 `
 
+export const ActionArrowIcon = styled.div`
+  width: 60px;
+  height: 30px;
+  transform: rotate(65deg) scaleX(-1) scaleY(-1);
+  position: absolute;
+  top: 0;
+  right: 32%;
+  &:before {
+    content: url('/public/images/icons/Arrow.svg');
+  }
+`
+
 export const IngredientsContainer = styled.section`
   padding: 30px 0;
+  background-image:url('/public/images/backgrounds/cofee.jpg');
+  background-repeat: repeat;
+  width: 100%;
+  height: auto;
+  background-size: cover;
 `
 
 export const IngredientsWrapper = styled.div`
   ${containerStyled}
-  & button {
-    width: 100px;
-    margin: 10px auto;
-  }
 `
 
 export const TitleContainer = styled.div`
@@ -231,7 +259,7 @@ export const LabelEmptyContainer = styled.label`
 `
 
 export const BannerContainer = styled.section`
-  background-image:url(${backgroundBanner});
+  background-image:url('/public/images/backgrounds/vanesa-conunaese-E-unsplash.jpg');
   background-repeat: no-repeat;
   width: 100%;
   height: auto;
