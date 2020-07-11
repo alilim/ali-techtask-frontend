@@ -8,6 +8,7 @@ import { IngredientsContainer, IngredientsWrapper, TitleContainer, IngredientsLi
 
 const Ingredients = ({data, evSubmitIngredients, date, innerRef}) => {
   const [ valueIngredient, setValueIngredient ] = useState([])
+  const [ isDisabled, setDisable ] = useState(true)
   
   const evClickIngredient = (e) => {
     const el = e.target,
@@ -26,6 +27,10 @@ const Ingredients = ({data, evSubmitIngredients, date, innerRef}) => {
       tempValueIngredients.push(value)
       
     }
+
+    if(tempValueIngredients.length > 0) setDisable(false)
+    else setDisable(true)
+
     setValueIngredient(tempValueIngredients)
   } 
 
@@ -69,7 +74,7 @@ const Ingredients = ({data, evSubmitIngredients, date, innerRef}) => {
               </IngredientsList>
               <IngredientsButtonContainer>
                 <ButtonComponent mode='clear' onClick={evReset}>Clear</ButtonComponent>
-                <ButtonComponent mode='default' onClick={evSubmit}>Submit</ButtonComponent>
+                <ButtonComponent mode='default' onClick={evSubmit} {...(isDisabled && { disabled : isDisabled})}>Submit</ButtonComponent>
               </IngredientsButtonContainer>
             </>
           ) : <LabelEmptyContainer>There is no ingredients ...</LabelEmptyContainer> 

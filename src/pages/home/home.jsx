@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
+import ReactDOM from 'react-dom'
+import ReactTooltip from 'react-tooltip'
 import moment from 'moment'
 
 import { debounce } from '../../assets/javascripts/function'
@@ -21,11 +23,13 @@ const Index = () => {
   const [ ingredientData, setIngredientData ] = useState(null)
   const [ recipeData, setRecipeData ] = useState(null)
   const [ valueIngredient, setValueIngredient ] = useState(null)
+  const [ errors, setErrors ] = useState({ input: {} })
 
   const ingredientRef = useRef(),
     recipeRef = useRef(),
     loadingRef = useRef(),
     loadingRecipeRef = useRef(),
+    inputRef = useRef(),
     prefixUrl = 'https://lb7u7svcm5.execute-api.ap-southeast-1.amazonaws.com/dev'
 
   const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)
@@ -40,9 +44,9 @@ const Index = () => {
 
   const delayedCallback = debounce((e) => {
     const val = e.target.value === 'YYYY-MM-DD' ? '' : e.target.value
-    console.log(val, "value")
     setValueDate(val)
     setOpenGenerate((val ? true : false))
+    handleValidationInputDate(val)
   }, 300)
 
   const handleInput = (e) => {
@@ -50,7 +54,35 @@ const Index = () => {
     delayedCallback(e)
   }
 
+  const handleValidationInputDate = (val) => {
+    let errorTemp =  Object.assign({}, errors)
+    const inputReactNode = inputRef.current && ReactDOM.findDOMNode(inputRef.current)
+
+    if(val !== '' ) {
+      const isValid = moment(val,'YYYY-MM-DD').isValid()
+      if(val.length !== 10 || !isValid) {
+        errorTemp.input = { message: 'Date is not Valid!' }
+        ReactTooltip.show(inputReactNode)
+      }else {
+        errorTemp.input = {}
+        ReactTooltip.hide(inputReactNode)
+      }
+    }else {
+      errorTemp.input = {}
+      ReactTooltip.hide(inputReactNode)
+    }
+
+    ReactTooltip.rebuild()
+    setErrors(errorTemp)
+  }
+
   const evGenerate = (e) => {
+    if(errors.input?.message) {
+      const inputReactNode = inputRef.current && ReactDOM.findDOMNode(inputRef.current)
+      ReactTooltip.show(inputReactNode)
+      return false
+    }
+
     if(!isFirstLoad) setFirstLoad(true)
 
     const type  = e.target.getAttribute('data-type'),
@@ -110,9 +142,11 @@ const Index = () => {
     }, 888)
   }
 
+ 
+
   return (
     <SingleLayout>
-      <Main handleInput={handleInput} isOpenGenerate={isOpenGenerate} evGenerate={evGenerate} />
+      <Main handleInput={handleInput} isOpenGenerate={isOpenGenerate} evGenerate={evGenerate} innerInputRef={inputRef} errors={errors} />
       {
         !isFirstLoad ? (
           <>
@@ -135,6 +169,7 @@ const Index = () => {
           </>
         )
       }
+      <ReactTooltip />
     </SingleLayout>
   )
 }
